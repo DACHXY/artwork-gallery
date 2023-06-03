@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="home.css">
 </head>
 
 <body>
     <?php
-    @include $_SERVER['DOCUMENT_ROOT'] . "components/header/header.php";
-    // 使用示例
-    $helloWorld = new HomePageHeader();
-    echo $helloWorld->render();
+    @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/header/header.php";
+    // 主頁 Header
+    $HOME_PAGE_HEADER = new HomePageHeader();
+    echo $HOME_PAGE_HEADER->render();
     ?>
 </body>
 

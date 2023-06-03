@@ -10,8 +10,8 @@ class Component
     }
 
     /**
-     * 回傳需要渲染的 html
-     *
+     * 渲染 component
+     * 可以複寫
      * @return string
      */
     public function render()
@@ -19,5 +19,6 @@ class Component
         return '';
     }
 }
+
 
 ?>

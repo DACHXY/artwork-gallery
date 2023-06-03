@@ -1,0 +1,23 @@
+.frame-home-page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 50px;
+    height: 64px;
+}
+
+.frame-home-page-header .home-header-logo {
+    width: 40px;
+    height: 40px;
+}
+
+.section-header-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 20px;
+    height: 44px;
+}
