@@ -1,0 +1,47 @@
+@import "/components/header/header.css";
+@import "/components/button/headerButton/headerButton.css";
+@import "/components/searchBar/searchBar.css";
+@import "/components/recommendFrame/recommendFrame.css";
+@import "/components/hero/hero.css";
+@import "/components/userAvatar/userAvatar.css";
+@import "/components/tag/tag.css";
+@import "/styles/font.css";
+@import "/styles/general.css";
+
+
+.frame-main {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    isolation: isolate;
+    height: 100%;
+}
+
+.section-main-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    height: calc(100% - 40px);
+    flex-grow: 1.5;
+}
+
+.section-main-function {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 40px;
+    gap: 60px;
+}
+
+.section-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+    isolation: isolate;
+}

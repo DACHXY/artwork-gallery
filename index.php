@@ -2,10 +2,10 @@
 $request_uri = $_SERVER['REQUEST_URI'];
 
 $routes = array(
-    "/" => "pages/home.php",
-    "/home" => "pages/home.php"
+    "/" => "pages/home/home.php",
+    "/home" => "pages/home/home.php",
+    "/gallery" => "pages/gallery/gallery.php"
 );
-
 
 // 設定路由
 if (isset($routes[$request_uri])) {

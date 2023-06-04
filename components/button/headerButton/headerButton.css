@@ -7,23 +7,37 @@
     position: relative;
     text-decoration: none;
     height: 44px;
+
 }
 
-.--header-button:hover::after {}
+.--header-button:hover::after {
+    height: 100%;
+    transition: 0.3s;
+}
+
+.--header-button:hover .--header-button-text {
+    color: #fff;
+    transition: 0.3s;
+}
 
 .--header-button::after {
+    z-index: 0;
     content: "";
     position: absolute;
     display: block;
-    width: 80%;
+    width: 86%;
     bottom: 0;
-    height: 0;
-    background-color: #202020;
+    height: 2px;
+    background-color: #404040;
+
+    transition: 0.3s;
 }
 
 
 
 .--header-button-text {
+    z-index: 1;
+
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 600;
@@ -36,5 +50,7 @@
     order: 0;
     flex-grow: 0;
 
-    color: #000000;
+    color: #404040;
+
+    transition: 0.3s;
 }

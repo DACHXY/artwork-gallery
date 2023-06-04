@@ -1,0 +1,13 @@
+@import "/components/header/header.css";
+@import "/components/button/headerButton/headerButton.css";
+@import "/components/searchBar/searchBar.css";
+@import "/components/card/card.css";
+@import "/styles/font.css";
+@import "/styles/general.css";
+
+.card-frame {
+    column-count: 5;
+    column-gap: 18px;
+    margin-left: 14%;
+    margin-right: 14%;
+}

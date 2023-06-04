@@ -1,0 +1,62 @@
+.section-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    flex-grow: 2;
+}
+
+.section-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.frame-artwork-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 37px;
+    gap: 18px;
+
+    position: absolute;
+    left: -6%;
+    bottom: 20%;
+
+    max-width: 45%;
+
+    background: rgba(72, 72, 72, 0.98);
+    box-shadow: -1px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+}
+
+.hero-into-artist {
+    font-family: 'Robot';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    max-width: 100%;
+    text-size-adjust: auto;
+    /* 自动调整文字大小 */
+}
+
+.hero-into-artwork-name {
+    font-family: 'Robot';
+    font-style: italic;
+    font-weight: 400;
+    font-size: 2.4vw;
+    display: flex;
+    align-items: center;
+
+    color: #ECECEC;
+}
+
+.hero-tags-artwork-info {
+    display: flex;
+    overflow: hidden;
+}
