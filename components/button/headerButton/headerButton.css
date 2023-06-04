@@ -9,14 +9,19 @@
     height: 44px;
 }
 
+.--header-button:hover::after {}
+
 .--header-button::after {
     content: "";
     position: absolute;
     display: block;
     width: 80%;
     bottom: 0;
-    border-bottom: #404040 2px solid;
+    height: 0;
+    background-color: #202020;
 }
+
+
 
 .--header-button-text {
     font-family: 'Roboto';
