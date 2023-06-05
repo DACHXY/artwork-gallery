@@ -54,8 +54,13 @@ class UserAvatar extends Component
                     <img src="$user_avatar" alt="User Avatar">
                 </a>
                 <div class="user-info">
-                    <span class="info-item primary">$username</span>
-                    <span class="info-item secondary">$email</span>
+                    <div class="user-bg-container">
+                        <img class="user-bg" src="$user_avatar" ></img>
+                    </div>
+                    <div class="user-info-section">
+                        <span class="info-item primary">$username</span>
+                        <span class="info-item secondary">$email</span>
+                    </div>
                     <a class="logout" href="/logout">
                         {$icon->render()}
                         <span>Log out</span>
