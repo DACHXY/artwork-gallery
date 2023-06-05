@@ -2,12 +2,76 @@
 @import "/components/button/headerButton/headerButton.css";
 @import "/components/searchBar/searchBar.css";
 @import "/components/card/card.css";
+@import "/components/recommendFrame/recommendFrame.css";
+@import "/components/userAvatar/userAvatar.css";
 @import "/styles/font.css";
 @import "/styles/general.css";
+
+.container {
+    height: auto;
+    width: calc(100% - 28%);
+    padding-left: 14%;
+    padding-right: 14%;
+}
 
 .card-frame {
     column-count: 5;
     column-gap: 18px;
-    margin-left: 14%;
-    margin-right: 14%;
+    padding-bottom: 200px;
+    margin-bottom: 200px;
+    height: fit-content;
+}
+
+.page-change-container {
+    height: 60px;
+    min-width: 60%;
+    margin-bottom: 40px;
+}
+
+#left-arrow {
+    position: absolute;
+    left: 4%;
+    top: 50%;
+}
+
+#left-arrow:hover {
+    animation: PopLeft 0.3s ease forwards;
+}
+
+#right-arrow {
+    position: absolute;
+    right: 4%;
+    top: 50%;
+}
+
+#right-arrow:hover {
+    animation: PopRight 0.3s ease forwards;
+}
+
+@keyframes PopLeft {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes PopRight {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
 }

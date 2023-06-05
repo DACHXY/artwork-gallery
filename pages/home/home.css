@@ -3,6 +3,7 @@
 @import "/components/searchBar/searchBar.css";
 @import "/components/recommendFrame/recommendFrame.css";
 @import "/components/hero/hero.css";
+@import "/components/button/actionButton/actionButton.css";
 @import "/components/userAvatar/userAvatar.css";
 @import "/components/tag/tag.css";
 @import "/styles/font.css";

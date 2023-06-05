@@ -1,6 +1,7 @@
 <?php
 @require_once $_SERVER['DOCUMENT_ROOT'] . "/global/baseComponent.php";
 @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/icons/icons.php";
+@require_once $_SERVER['DOCUMENT_ROOT'] . "/components/button/actionButton/actionButton.php";
 
 class RecommendFrame extends Component
 {
@@ -46,20 +47,20 @@ class RecommendFrame extends Component
             $_ARTISTS_ .= $this->Map($artist);
         }
 
+        $action_button_props = array(
+            'href' => "/artist",
+            "text" => "See more"
+        );
+
+        $ACTION_BUTTON = new ActionButton($action_button_props);
+
         return <<<HTML
             <div class="section-recommend-artists">
                 <h2 class="text-recommend-artist">Recommend Artists</h2>
                 <div class="frame-artists">
                     $_ARTISTS_
                 </div>
-                <a class="text-underline" href="/artist">
-                    <div class="line-container">
-                        <div class="line"></div>
-                        <div class="line__top"></div>
-                        <div class="line__bottom"></div>
-                    </div>
-                    <span>See more</span>
-                </a>
+                {$ACTION_BUTTON->render()}
             </div>
         HTML;
     }

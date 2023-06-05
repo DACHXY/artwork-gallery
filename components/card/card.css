@@ -16,39 +16,87 @@
     transform: scale(1.4);
 }
 
-.container-card:hover img {
+.container-card:hover .artwork-img {
     border-radius: 0;
     transition: 0.3s ease;
-    z-index: 100;
+    z-index: 99;
 }
 
-
-
-.container-card img {
+.container-card .artwork-img {
     position: relative;
     z-index: 3;
     max-width: 100%;
     height: auto;
-    border-radius: 20px;
+    border-radius: 14px;
     transition: 0.3s ease;
 }
 
 .card-info {
     position: absolute;
     z-index: 99;
-    left: 100%;
-    top: 0;
-    height: 100%;
-    width: 0;
-    background: #fff;
-    transform-origin: left;
-    transition: 0.3s ease;
+    top: 100%;
+    width: calc(100% - 2vw);
+    max-height: 0;
+    padding: 0vw 1vw;
+    background: rgba(255, 255, 255, 0.7);
+    transform-origin: top;
     overflow: hidden;
-    border-radius: 0px 4px 4px 0px;
+    backdrop-filter: blur(4px);
+    border-radius: 0 0 4px 4px;
 }
 
 .container-card:hover .card-info {
-    transition: 0.3s ease;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    width: 100%;
+    animation: SlideOut 1s ease-in forwards;
+}
+
+@keyframes SlideOut {
+    0% {
+        max-height: 0;
+    }
+
+    50% {
+        max-height: 0;
+    }
+
+    100% {
+        max-height: 900px;
+        box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.card-info h1 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2vw;
+    font-family: "Robot";
+    font-weight: 600;
+    color: #404040;
+}
+
+
+/* 首字母大寫 */
+.card-info h1::first-letter {
+    text-transform: uppercase;
+}
+
+
+.card-info .artist-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.artist-info span {
+    font-size: 1.2vw;
+    font-family: "Robot";
+    color: #404040;
+}
+
+.artist-info img {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
 }

@@ -30,7 +30,6 @@
                 // 推薦名單
                 $RECOMMEND = new RecommendFrame();
                 echo $RECOMMEND->render();
-
                 ?>
             </div>
             <div class="placeholder">
