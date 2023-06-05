@@ -123,3 +123,29 @@ input {
     transform: scale(-1, 1);
     transition: 0.3s ease;
 }
+
+.under-line-animation {
+    position: relative;
+}
+
+.under-line-animation::before {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 5%;
+    transform-origin: center;
+    width: 90%;
+    height: 2px;
+    background-color: #404040;
+    animation: UnderLineSlide 0.6s ease forwards;
+}
+
+@keyframes UnderLineSlide {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}

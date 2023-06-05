@@ -58,7 +58,7 @@
                     $ACTION_BUTTON = new ActionButton($action_button_props);
 
                     return <<<HTML
-                    <h1>$title</h1>
+                    <h1 class="under-line-animation">$title</h1>
                     <form class="general-form" method="POST" action="/login">
                         <div class="general-input-container">
                             $html
@@ -89,50 +89,7 @@
                     echo AuthForm("Hi, There!", "emailVerify", $input_array, "Submit");
                 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if (isset($_POST['login'])) {
-                        // 登入 POST 請求處理邏輯
-                        $DBpassword = "danny2024";
-                        $password = $_POST["password"];
-                        $email = $_POST["email"];
-
-                        // 密碼錯誤
-                        if ($password != $DBpassword) {
-                            // 獲取名字
-                            $username = "DACHXY";
-                            $input_array = [
-                                array(
-                                    "name" => "password",
-                                    "type" => "password",
-                                    "text" => "Password"
-                                ),
-                                // hidden post value
-                                array(
-                                    "name" => "email",
-                                    "type" => "text",
-                                    "text" => "email",
-                                    "value" => $email,
-                                    "hide" => true
-                                )
-                            ];
-                            echo AuthForm("Password is wrong!", "login", $input_array, "Log In");
-                        } else if (($password == $DBpassword)) {
-                            session_start();
-
-                            // 獲取使用者資料
-                            $username = "DACHXY";
-                            $user_email = "danny10132024@gmail.com";
-                            $user_avatar = "/www/images/avatars/dachxy.jpg";
-                            $user_liked_artworks = [];
-
-                            // 儲存資料
-                            $_SESSION['username'] = $username;
-                            $_SESSION['email'] = $user_email;
-                            $_SESSION['avatar'] = $user_avatar;
-                            $_SESSION['logged_in'] = true;
-
-                            header("Location: /home");
-                            exit();
-                        }
-
+                        @include $_SERVER['DOCUMENT_ROOT'] . "/controller/login.php";
 
                     } else if (isset($_POST['register'])) {
                         // 註冊 POST 請求處理邏輯

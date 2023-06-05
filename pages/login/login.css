@@ -43,6 +43,7 @@ body {
     flex-direction: column;
     place-content: center;
     place-items: center;
+    margin-top: 60px;
 }
 
 .login-from h1 {
