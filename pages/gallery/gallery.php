@@ -11,6 +11,7 @@
 
 <body>
     <?php
+    session_start();
     @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/header/header.php";
     @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/userAvatar/userAvatar.php";
 
@@ -50,11 +51,9 @@
 
     ?>
     <div class="container">
-        <div class="card-frame">
+        <div class="card-frame" id="card-frame">
             <?php
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-
-
 
             }
 

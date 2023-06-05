@@ -17,15 +17,14 @@ class UserAvatar extends Component
 
     public function render()
     {
-        $user = null;
 
-        // $user = array(
-        //     "username" => "danny",
-        //     "avatar" => "https://d7hftxdivxxvm.cloudfront.net?height=90&quality=50&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2F-LJyO0peWclsuXcMkRUX4Q%2Flarge.jpg&width=90"
-        // );
+        $username = $_SESSION["username"];
+        $user_avatar = $_SESSION["avatar"];
+        $email = $_SESSION["email"];
+        $username = strtoupper($username);
 
         // 使用者未登入
-        if ($user == null) {
+        if ($username == null || empty(trim($username))) {
             $icon_props = array(
                 "icon" => "user-default",
                 "className" => "user-icon-default"
@@ -34,27 +33,33 @@ class UserAvatar extends Component
             $icon = new Icon($icon_props);
             return <<<HTML
                 <div class="container-user-avatar">
-                    <a href="/login" class="container-user-avatar">
+                    <a class="user-avatar" href="/login">
                         {$icon->render()}
                     </a>
-                    <!-- <div class="user-info">
-                        <span>Log In</span>
-                    </div> -->
                 </div>
             HTML;
         }
 
         $MY_FAV = new MyFavorite();
-        $user_avatar = $user["avatar"];
-        $user_name = strtoupper($user["username"]);
+        $icon_props = array(
+            "icon" => "logout",
+            "className" => "logout-icon"
+        );
+
+        $icon = new Icon($icon_props);
 
         return <<<HTML
             <div class="container-user-avatar">
-                <a href="/my">
+                <a class="user-avatar" href="/my">
                     <img src="$user_avatar" alt="User Avatar">
                 </a>
                 <div class="user-info">
-                    <span>$user_name</span>
+                    <span class="info-item primary">$username</span>
+                    <span class="info-item secondary">$email</span>
+                    <a class="logout" href="/logout">
+                        {$icon->render()}
+                        <span>Log out</span>
+                    </a>
                 </div>
             </div>
         HTML;

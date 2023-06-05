@@ -13,6 +13,7 @@
     <div class="frame-main">
         <section class="section-main-page">
             <?php
+            session_start();
             @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/header/header.php";
             // 主頁 Header
             $HOME_PAGE_HEADER = new HomePageHeader();
@@ -42,6 +43,7 @@
 
         $HERO = new Hero();
         echo $HERO->render();
+
 
         $USER_AVATAR = new UserAvatar();
         echo $USER_AVATAR->render();

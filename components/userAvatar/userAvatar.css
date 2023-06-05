@@ -8,19 +8,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
 }
 
-.container-user-avatar a {
-    width: 50px;
-    height: 50px;
+.container-user-avatar .user-avatar {
+    display: flex;
+    place-content: center;
+    place-items: center;
+    width: 42px;
+    height: 42px;
     background-color: #fff;
     border-radius: 50%;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
     z-index: 99;
 }
 
-.container-user-avatar img {
+.container-user-avatar .user-avatar img {
     z-index: 99;
     position: absolute;
     left: 0;
@@ -28,6 +31,7 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
+    transform-origin: center center;
     transform: translateY(0) translateX(0) scale(1);
     transition: 0.3s ease;
 }
@@ -41,13 +45,14 @@
 .user-info {
     position: absolute;
     z-index: 98;
-    left: 20px;
-    bottom: 20px;
+    left: 50%;
+    bottom: 50%;
     width: calc(300px - 52px);
     height: calc(400px - 40px - 80px);
     background-color: #fff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     transform: scale(0);
+    border-radius: 4px;
 
     transition: 0.3s ease;
     transform-origin: left bottom;
@@ -56,32 +61,49 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    gap: 10px;
 
-    border-radius: 4px;
     padding-left: 26px;
     padding-right: 26px;
     padding-bottom: 40px;
     padding-top: 80px;
 }
 
-.user-info span {
+.user-info::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #404040;
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: 0.3s ease-in;
+}
+
+.user-info .info-item.secondary {
+    font-size: 16px;
+}
+
+.user-info .info-item {
     position: relative;
     font-size: 24px;
     color: #404040;
     font-weight: 500;
-    font-family: "Robot";
+    font-family: "Roboto";
     font-style: normal;
     cursor: default;
     transform: translateX(0);
     transition: 0.3s ease;
 }
 
-.user-info span:hover {
+.user-info .info-item:hover {
     transform: translateX(10px);
     transition: 0.3s ease;
 }
 
-.user-info span::before {
+.user-info .info-item::before {
     left: -10px;
     position: absolute;
     content: "";
@@ -94,7 +116,7 @@
     transition: 0.3s ease;
 }
 
-.user-info span:hover:before {
+.user-info .info-item:hover:before {
     left: -10px;
     position: absolute;
     content: "";
@@ -114,8 +136,85 @@
     backdrop-filter: blur(4px);
 }
 
-.container-user-avatar:hover img {
-    transform: translateY(-380px) translateX(calc(130px + 25px)) scale(1.4);
+.container-user-avatar:hover .user-info::before {
+    transition: 0.3s ease-in-out;
+    transform: scaleY(1);
+}
+
+.container-user-avatar:hover .user-avatar img {
+    transform: translateY(-380px) translateX(calc(150px)) scale(1.4);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.3s ease;
+}
+
+.logout {
+    position: absolute;
+    height: 40px;
+    min-width: 40px;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    gap: 6px;
+    padding: 0px 0px;
+    place-content: center;
+    place-items: center;
+    transition: 0.3s ease;
+}
+
+.logout:hover {
+    padding: 0px 10px;
+}
+
+.logout span {
+    max-width: 0;
+    height: 100%;
+    text-align: center;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.3s ease;
+    overflow: hidden;
+    color: #fff;
+    display: flex;
+    place-content: center;
+    place-items: center;
+}
+
+.logout::after {
+    position: absolute;
+    display: block;
+    content: "";
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #404040;
+    transform: scaleX(0);
+    transition: 0.3s ease;
+    transform-origin: left;
+    z-index: -1;
+    border-radius: 4px;
+}
+
+.logout:hover::after {
+    transform: scaleX(1);
+    transition: 0.3s ease;
+}
+
+.logout:hover span {
+    max-width: 200px;
+    transition: 0.3s ease;
+}
+
+.logout:hover .logout-icon {
+    fill: #fff;
+    transition: 0.3s ease;
+}
+
+
+
+.logout-icon {
+    width: 32px;
+    height: 32px;
+    fill: #404040;
     transition: 0.3s ease;
 }

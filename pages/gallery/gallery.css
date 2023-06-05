@@ -12,14 +12,30 @@
     width: calc(100% - 28%);
     padding-left: 14%;
     padding-right: 14%;
+    margin-top: 140px;
 }
 
 .card-frame {
-    column-count: 5;
-    column-gap: 18px;
-    padding-bottom: 200px;
-    margin-bottom: 200px;
-    height: fit-content;
+    column-count: 3;
+    column-gap: 10px;
+}
+
+@media (min-width: 768px) {
+    .card-frame {
+        column-count: 4;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-frame {
+        column-count: 5;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-frame {
+        column-count: 6;
+    }
 }
 
 .page-change-container {

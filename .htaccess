@@ -1,6 +1,6 @@
 RewriteEngine On
 
 # 不要重定向.css和.ttf文件
-RewriteCond %{REQUEST_URI} !\.(css|ttf|png|jpg)$ [NC]
+RewriteCond %{REQUEST_URI} !\.(css|ttf|png|jpg|js)$ [NC]
 
 RewriteRule ^(.*)$ index.php [L]

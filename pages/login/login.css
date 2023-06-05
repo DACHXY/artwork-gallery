@@ -1,6 +1,7 @@
 @import "/components/header/header.css";
 @import "/components/button/headerButton/headerButton.css";
 @import "/components/searchBar/searchBar.css";
+@import "/components/button/actionButton/actionButton.css";
 @import "/styles/font.css";
 @import "/styles/general.css";
 
@@ -46,7 +47,9 @@ body {
 
 .login-from h1 {
     color: #404040;
-    font-family: "Robot";
+    font-family: "Roboto";
     font-size: 42px;
     margin-bottom: 40px;
 }
+
+.login-from auth-submit {}
