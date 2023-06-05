@@ -136,7 +136,7 @@
 
                     } else if (isset($_POST['register'])) {
                         // 註冊 POST 請求處理邏輯
-                        handleRegisterRequest();
+                        @include $_SERVER['DOCUMENT_ROOT'] . "/controller/signup.php";
                     }
 
                     // 驗證 Email
@@ -146,7 +146,7 @@
 
                         // Email 存在
                         if (in_array($email, $emails)) {
-                            // 獲取名字
+                            // 獲取名字 並登入
                             $username = "DACHXY";
                             $input_array = [
                                 array(
@@ -167,6 +167,11 @@
                         } else {
                             // 註冊
                             $input_array = [
+                                array(
+                                    "name" => "username",
+                                    "type" => "text",
+                                    "text" => "Username"
+                                ),
                                 array(
                                     "name" => "password",
                                     "type" => "password",
@@ -196,6 +201,9 @@
     </div>
     <script>
         handleInputChange('email')
+        handleInputChange('username')
+        handleInputChange('password')
+        handleInputChange('re-password')
     </script>
 </body>
 
