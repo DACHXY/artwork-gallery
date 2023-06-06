@@ -1,21 +1,15 @@
 <?php
-function connectToDatabase($host, $dbname, $username, $password)
-{
-    $dsn = "sqlsrv:Server=$host;Database=$dbname;TrustServerCertificate=1";
+$__DBsevername = "sql-server-2";
+$__DBname = "ArtworkDB";
+$__DBusername = "sa";
+$__DBpassword = "Danny10132024...";
 
-    try {
-        $pdo = new PDO($dsn, $username, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $pdo;
-    } catch (PDOException $e) {
-        die("Database connection failed: " . $e->getMessage());
-    }
+$dsn = "sqlsrv:Server=$__DBsevername;Database=$__DBname;TrustServerCertificate=1";
+
+try {
+    $pdo = new PDO($dsn, $__DBusername, $__DBpassword);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
 }
-
-$severname = "sql-server-2";
-$dbname = "ArtworkDB";
-$username = "sa";
-$password = "Danny10132024...";
-$pdo = connectToDatabase($severname, $dbname, $username, $password);
-
 ?>

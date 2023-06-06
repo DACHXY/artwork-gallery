@@ -9,8 +9,7 @@ class Hero extends Component
         $html = "";
         for ($i = 0; $i < count($tags); $i++) {
             $tag_props = array(
-                "text" => $tags[$i]["text"],
-                "href" => $tags[$i]["href"]
+                "text" => $tags[$i]
             );
 
             $TAG = new Tag($tag_props);
@@ -24,31 +23,20 @@ class Hero extends Component
 
     public function render()
     {
-        // dummy data
-        $artwork = array(
-            "name" => "Spielende Kinder in einer Scheune, 1898",
-            "slug" => "max-liebermann-spielende-kinder-in-einer-scheune",
-            "image" => "https://d7hftxdivxxvm.cloudfront.net?height=783&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2Fjd-Z4JgZ70WfT7iwfSWKTA%2Fnormalized.jpg&width=800",
-            "artist" => array(
-                "name" => "Max Liebermann",
-                "slug" => "max-liebermann"
-            ),
-            "tags" => [
-                array(
-                    "text" => "Oil on canvs on cardboard",
-                    "href" => "/tag/oil-on-canvs-on-cardboard"
-                )
-            ]
-        );
+        @require_once $_SERVER['DOCUMENT_ROOT'] . "/db/context.php";
+        @include $_SERVER['DOCUMENT_ROOT'] . "/db/dbConnect.php";
 
-        $artwork_name = $artwork["name"];
+        $artworks = getRadArtwork($pdo, 1);
+        $artwork = $artworks[0];
+        $artwork_name = $artwork["artwork_name"];
         $artwork_img = $artwork["image"];
-        $artwork_href = "/artwork/" . $artwork["slug"];
-        $artwork_artist_name = $artwork["artist"]["name"];
-        $artwork_artist_href = "/artist/" . $artwork["artist"]["slug"];
-        $tags = $artwork["tags"];
-        // tag 取 2 個
-        $subset_tag = array_slice($tags, 0, 2);
+        $artwork_href = "/artwork?slug=" . $artwork["artwork_slug"];
+        $artwork_artist_name = $artwork["artist_name"];
+        $artwork_artist_href = "/artist?slug=" . $artwork["artist_slug"];
+        $tags = [$artwork["medium"]];
+
+        // tag 取 1 個
+        $subset_tag = array_slice($tags, 0, 1);
         $html_tags = $this->MapTags($subset_tag);
 
         return <<<HTML

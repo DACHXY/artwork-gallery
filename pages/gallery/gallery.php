@@ -60,8 +60,12 @@
 
             @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/card/card.php";
             @require_once $_SERVER['DOCUMENT_ROOT'] . "/db/context.php";
+            @include $_SERVER['DOCUMENT_ROOT'] . "/db/dbConnect.php";
 
-
+            $user_cart = [];
+            if ($_SESSION["logged_in"]) {
+                $user_cart = getUserCart($pdo, $_SESSION["id"]);
+            }
             $all_artwork_result = getALLArtwork($pdo);
 
             // 切頁數
@@ -79,13 +83,18 @@
                 $artist_avatar = $artwork["avatar"];
                 $artist_name = $artwork["artist_name"];
                 $artwork_href = "/artwork?slug=" . $artwork["artwork_slug"];
+                $artwork_price = $artwork["price"];
+                $artwork_slug = $artwork["artwork_slug"];
 
                 $card_porps = array(
                     "imageHref" => $image_url,
                     "artworkHref" => $artwork_href,
                     "artworkTitle" => $arwork_title,
                     "artistAvatar" => $artist_avatar,
-                    "artistName" => $artist_name
+                    "artistName" => $artist_name,
+                    "artworkPrice" => $artwork_price,
+                    "artworkSlug" => $artwork_slug,
+                    "addedToCart" => in_array($artwork_slug, $user_cart)
                 );
 
                 $CARD = new Card($card_porps);

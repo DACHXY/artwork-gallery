@@ -7,3 +7,17 @@ function handleInputChange(id) {
         label.classList.remove('focused');
     }
 }
+
+function makeEditable(element) {
+    element.contentEditable = true;
+    element.focus();
+}
+
+function checkValue(element) {
+    var value = parseInt(element.innerText);
+    if (value === 0) {
+      element.innerText = element.dataset.previousValue || '';
+    } else {
+      element.dataset.previousValue = value;
+    }
+  }

@@ -7,7 +7,12 @@ $routes = array(
     "/gallery" => "pages/gallery/gallery.php",
     "/login" => "pages/login/login.php",
     "/logout" => "controller/logout.php",
+    "/me" => "pages/my/my.php",
     "/test" => "dev/test.php",
+    "/editUser" => "controller/editUser.php",
+    "/add-to-cart" => "controller/addToCart.php",
+    "/remove-cart" => "controller/removeCart.php",
+    "/deleteUser" => "controller/deleteUser.php"
 );
 
 $route = parse_url($request_uri, PHP_URL_PATH);

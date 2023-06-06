@@ -98,58 +98,7 @@
 
                     // 驗證 Email
                     if (isset($_POST['emailVerify'])) {
-                        $email = strtolower($_POST['email']);
-                        $emails = ["danny10132024@gmail.com", "danny01161013@gmail.com"];
-
-                        // Email 存在
-                        if (in_array($email, $emails)) {
-                            // 獲取名字 並登入
-                            $username = "DACHXY";
-                            $input_array = [
-                                array(
-                                    "name" => "password",
-                                    "type" => "password",
-                                    "text" => "Password"
-                                ),
-                                // hidden post value
-                                array(
-                                    "name" => "email",
-                                    "type" => "text",
-                                    "text" => "email",
-                                    "value" => $email,
-                                    "hide" => true
-                                )
-                            ];
-                            echo AuthForm("Welcome Back, $username!", "login", $input_array, "Log In");
-                        } else {
-                            // 註冊
-                            $input_array = [
-                                array(
-                                    "name" => "username",
-                                    "type" => "text",
-                                    "text" => "Username"
-                                ),
-                                array(
-                                    "name" => "password",
-                                    "type" => "password",
-                                    "text" => "Password"
-                                ),
-                                array(
-                                    "name" => "re-password",
-                                    "type" => "password",
-                                    "text" => "Retype Password"
-                                ),
-                                // hidden post value
-                                array(
-                                    "name" => "email",
-                                    "type" => "text",
-                                    "text" => "email",
-                                    "value" => $email,
-                                    "hide" => true
-                                )
-                            ];
-                            echo AuthForm("Join Us!", "register", $input_array, "Join");
-                        }
+                        @include $_SERVER['DOCUMENT_ROOT'] . "/controller/emailVerify.php";
                     }
                 }
                 ?>

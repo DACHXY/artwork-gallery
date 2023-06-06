@@ -17,7 +17,6 @@ class UserAvatar extends Component
 
     public function render()
     {
-
         $username = $_SESSION["username"];
         $user_avatar = $_SESSION["avatar"];
         $email = $_SESSION["email"];
@@ -50,7 +49,7 @@ class UserAvatar extends Component
 
         return <<<HTML
             <div class="container-user-avatar">
-                <a class="user-avatar" href="/my">
+                <a class="user-avatar" href="/me">
                     <img src="$user_avatar" alt="User Avatar">
                 </a>
                 <div class="user-info">
