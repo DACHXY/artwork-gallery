@@ -43,7 +43,7 @@ if ($password != $DBpassword) {
     echo '<script>';
     echo 'setTimeout(function() {';
     echo '  window.location.href = "/home";'; // 在五秒後重定向到 /home
-    echo '}, 5000);'; // 5000 毫秒等於五秒
+    echo '}, 2000);'; //  等待2秒
     echo '</script>';
     exit();
 }

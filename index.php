@@ -6,7 +6,8 @@ $routes = array(
     "/home" => "pages/home/home.php",
     "/gallery" => "pages/gallery/gallery.php",
     "/login" => "pages/login/login.php",
-    "/logout" => "controller/logout.php"
+    "/logout" => "controller/logout.php",
+    "/dbtest" => "db/context.php"
 );
 
 $route = parse_url($request_uri, PHP_URL_PATH);
