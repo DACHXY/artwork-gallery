@@ -26,9 +26,57 @@
 }
 
 .frame-header-logo {
+    position: relative;
     width: 40px;
     height: 40px;
+    background-color: #fff;
+    transition: 0.3s ease;
+    border-radius: 50%;
 }
+
+.frame-header-logo {
+    color: #404040;
+    transition: 0.3s ease;
+}
+
+.frame-header-logo .home-header-logo {
+    position: relative;
+    z-index: 99;
+    stroke: #404040;
+    transition: 0.3s ease;
+}
+
+.frame-header-logo .home-header-logo path {
+    stroke: #404040;
+}
+
+.frame-header-logo::before {
+    z-index: 0;
+    content: "";
+    text-align: center;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    bottom: -10px;
+    left: -10px;
+    color: #fff;
+    background-color: #404040;
+    transform-origin: left bottom;
+    overflow: hidden;
+    transform: scale(0);
+    transition: 0.3s ease;
+}
+
+.frame-header-logo:hover::before {
+    transform: scale(1);
+    transition: 0.3s ease;
+}
+
+.frame-header-logo:hover .home-header-logo path {
+    stroke: #fff;
+    transition: 0.3s ease;
+}
+
 
 .frame-home-page-header .home-header-logo {
     width: 40px;
@@ -43,4 +91,10 @@
     padding: 0px;
     gap: 20px;
     height: 44px;
+}
+
+@keyframes dash {
+    0% {}
+
+    100% {}
 }

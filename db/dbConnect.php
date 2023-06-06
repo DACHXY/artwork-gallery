@@ -1,5 +1,6 @@
 <?php
-function connectToDatabase($host, $dbname, $username, $password) {
+function connectToDatabase($host, $dbname, $username, $password)
+{
     $dsn = "sqlsrv:Server=$host;Database=$dbname;TrustServerCertificate=1";
 
     try {
@@ -11,7 +12,7 @@ function connectToDatabase($host, $dbname, $username, $password) {
     }
 }
 
-$severname = "sql1";
+$severname = "sql-server-2";
 $dbname = "ArtworkDB";
 $username = "sa";
 $password = "Danny10132024...";

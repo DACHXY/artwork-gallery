@@ -7,6 +7,7 @@
     <title>Gallery</title>
     <link rel="stylesheet" type="text/css" href="/pages/gallery/gallery.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="/scripts/hoverCard.js"></script>
 </head>
 
 <body>
@@ -58,9 +59,10 @@
             }
 
             @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/card/card.php";
+            @require_once $_SERVER['DOCUMENT_ROOT'] . "/db/context.php";
 
-            $jsonString = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/www/data/Artworks.json');
-            $new_array = json_decode($jsonString, true);
+
+            $all_artwork_result = getALLArtwork($pdo);
 
             // 切頁數
             $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -68,19 +70,19 @@
             $start_index = ($page - 1) * $item_per_page;
             $endIndex = $start_index + $item_per_page - 1;
 
-            $artworks = array_slice($new_array, $start_index, $item_per_page);
+            $artworks = array_slice($all_artwork_result, $start_index, $item_per_page);
 
             $html = "";
-            for ($i = 0; $i < count($artworks); $i++) {
-                $artwork = $artworks[$i];
-                $image_url = $artwork["images"][0];
-                $arwork_title = $artwork["artworkName"];
-                $artist_avatar = "https://d7hftxdivxxvm.cloudfront.net?height=45&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2Fw6t9gJj4pPALkRbFnEpngQ%2Flarge.jpg&width=45";
-                $artist_name = $artwork["artistName"];
+            foreach ($artworks as $artwork) {
+                $image_url = $artwork["image"];
+                $arwork_title = $artwork["artwork_name"];
+                $artist_avatar = $artwork["avatar"];
+                $artist_name = $artwork["artist_name"];
+                $artwork_href = "/artwork?slug=" . $artwork["artwork_slug"];
 
                 $card_porps = array(
                     "imageHref" => $image_url,
-                    "artworkHref" => "",
+                    "artworkHref" => $artwork_href,
                     "artworkTitle" => $arwork_title,
                     "artistAvatar" => $artist_avatar,
                     "artistName" => $artist_name

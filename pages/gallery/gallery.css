@@ -45,7 +45,7 @@
 }
 
 #left-arrow {
-    position: absolute;
+    position: fixed;
     left: 4%;
     top: 50%;
 }
@@ -55,7 +55,7 @@
 }
 
 #right-arrow {
-    position: absolute;
+    position: fixed;
     right: 4%;
     top: 50%;
 }
