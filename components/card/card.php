@@ -11,7 +11,7 @@ class Card extends Component
         $artwork_title = isset($this->props['artworkTitle']) ? $this->props['artworkTitle'] : '';
         $artist_avatar = isset($this->props['artistAvatar']) ? $this->props['artistAvatar'] : '';
         $artist_name = isset($this->props['artistName']) ? $this->props['artistName'] : '';
-        $artwork_price = isset($this->props['artworkPrice']) ? sprintf("%.2f", $this->props['artworkPrice']) : '';
+        $artwork_price = isset($this->props['artworkPrice']) ? number_format($this->props['artworkPrice'], 2) : '';
         $artwork_slug = isset($this->props['artworkSlug']) ? $this->props['artworkSlug'] : '';
         $artwork_is_add_to_cart = isset($this->props['addedToCart']) ? $this->props['addedToCart'] : false;
 

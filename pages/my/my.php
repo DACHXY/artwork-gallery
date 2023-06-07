@@ -127,7 +127,20 @@
         <div class="frame">
             <div class="left-section section">
                 <div class="user-avatar-conatiner">
-                    <img class="user-avatar" src="<?php echo $user_avatar ?>">
+                    <form action="/upload-avatar" enctype="multipart/form-data" method="POST">
+                        <input id="icon-avatar-uploader" class="none" type="file" name="image"
+                            onchange="updateImagePreview(event, 'avatar-preview')" />
+                        <div class="upload-button">
+                            <input id="submit-avatar-button" type="submit" value="">
+                            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" height="48"
+                                viewBox="0 -960 960 960" width="48">
+                                <path
+                                    d="M220-160q-24 0-42-18t-18-42v-143h60v143h520v-143h60v143q0 24-18 42t-42 18H220Zm230-153v-371L330-564l-43-43 193-193 193 193-43 43-120-120v371h-60Z" />
+                            </svg>
+                        </div>
+                    </form>
+                    <img id="avatar-preview" onclick="Click('icon-avatar-uploader')" class="user-avatar"
+                        src="<?php echo $user_avatar ?>">
                 </div>
                 <form class="user-info-form" action="/editUser" method="POST">
                     <div class="edit-section">

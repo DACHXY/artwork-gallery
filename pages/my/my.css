@@ -4,6 +4,49 @@
 @import "/styles/font.css";
 @import "/styles/general.css";
 
+
+#submit-avatar-button {
+    position: absolute;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    z-index: 98;
+}
+
+.upload-button {
+    top: 70px;
+    right: 0px;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #404040;
+    border-radius: 50%;
+    transition: 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-icon {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    transition: 0.3s ease;
+    fill: #fff;
+}
+
+
+.upload-button:hover {
+    transition: 0.3s ease;
+    background-color: #fff;
+}
+
+.upload-button:hover .upload-icon {
+    transition: 0.3s ease;
+    fill: #404040;
+}
+
 .empty-frame {
     display: flex;
     justify-content: center;
@@ -271,15 +314,24 @@ a.submit-button {
 }
 
 .user-avatar-conatiner {
+    position: relative;
     width: 100px;
     height: 100px;
+}
+
+.user-avatar-conatiner form {
+    position: relative;
+    height: 0;
 }
 
 .user-avatar {
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    cursor: pointer;
 }
+
+
 
 .edit-section {
     width: 100%;
