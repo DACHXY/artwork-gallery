@@ -12,8 +12,6 @@
 
 <body>
     <?php
-
-
     session_start();
     @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/header/header.php";
     @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/userAvatar/userAvatar.php";
@@ -30,6 +28,11 @@
             $search_condition = "AK.artist_slug = '$artist_slug'";
             echo "<h2 class=\"float-item\">Artist: $artist_slug</h2>";
 
+        }
+        if (isset($_GET["artwork"])) {
+            $artwork_slug = $_GET["artwork"];
+            $search_condition = "AK.slug = '$artwork_slug'";
+            echo "<h2 class=\"float-item\">Artwork: $artwork_slug</h2>";
         }
     }
 
@@ -80,7 +83,6 @@
                 $user_cart = getUserCart($pdo, $_SESSION["id"]);
             }
 
-
             $all_artwork_result = getALLArtwork($pdo, $search_condition);
             // 切頁數
             $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -89,6 +91,10 @@
             $endIndex = $start_index + $item_per_page - 1;
 
             $artworks = array_slice($all_artwork_result, $start_index, $item_per_page);
+            if (count($artworks) == 0) {
+                header("Location: " . $_SERVER['HTTP_REFERER']);
+                exit();
+            }
 
             $html = "";
             foreach ($artworks as $artwork) {

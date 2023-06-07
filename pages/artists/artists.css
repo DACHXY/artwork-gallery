@@ -55,7 +55,26 @@ a {
     column-gap: 10px;
 }
 
+@media (min-width: 992px) {
+    .card-frame {
+        column-count: 4;
+    }
+}
+
+@media (min-width: 1400px) {
+    .card-frame {
+        column-count: 5;
+    }
+}
+
+@media (min-width: 1400px) {
+    .card-frame {
+        column-count: 6;
+    }
+}
+
 .container-card {
+    background-color: #fff;
     border-radius: 14px;
     border: #404040 1pt solid;
     padding: 10px 20px;
@@ -63,11 +82,12 @@ a {
     position: relative;
     display: flex;
     height: 300px;
+    justify-content: center;
     align-items: center;
     transition: 0.3s ease;
     transform: scale(1);
     margin-bottom: 30px;
-    width: calc(100% - 40pxs);
+    width: calc(100% - 40px);
     overflow: hidden;
 }
 

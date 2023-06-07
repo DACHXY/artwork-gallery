@@ -30,7 +30,7 @@ class Hero extends Component
         $artwork = $artworks[0];
         $artwork_name = $artwork["artwork_name"];
         $artwork_img = $artwork["image"];
-        $artwork_href = "/artwork?slug=" . $artwork["artwork_slug"];
+        $artwork_href = "/gallery?artwork=" . $artwork["artwork_slug"];
         $artwork_artist_name = $artwork["artist_name"];
         $artwork_artist_href = "/artist?slug=" . $artwork["artist_slug"];
         $tags = [$artwork["medium"]];
