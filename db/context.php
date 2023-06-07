@@ -119,7 +119,7 @@ function getAllUsers($pdo)
 
 function getUserByEmail($pdo, $email)
 {
-    $result = selectFromDatabase($pdo, TableName::$USER, "*", "email = $email");
+    $result = selectFromDatabase($pdo, TableName::$USER, "*", "", "", "email = :email", [$email]);
     return $result;
 }
 
