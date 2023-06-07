@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['image'])) {
         $file = $_FILES['image'];
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+
         // 获取文件相关信息
         $fileName = generateUUID();
         $fileTmpPath = $file['tmp_name'];
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = getUserByEmail($pdo, $email)[0];
             $old_avatar = $user["avatar"];
             if ($old_avatar != "/www/images/avatars/default.jpg") {
-                if (file_exists($old_avatar)) {
+                if (file_exists($_SERVER['DOCUMENT_ROOT'] . $old_avatar)) {
                     if (unlink($old_avatar)) {
                         echo '檔案已成功刪除';
                     } else {
@@ -49,10 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             updateUser($pdo, $new_user, $user_id);
             $_SESSION["avatar"] = $new_avatar;
         } else {
-            echo '上傳錯誤';
+            Header("location: /me?error=You+have+not+selected+any+file");
+            exit();
         }
     }
-    Header("location: /me");
+    Header("location: /me?edit=success");
     exit();
 } else {
     Header("location: /me");
