@@ -15,17 +15,59 @@
 
     function mapCart($array)
     {
+        $icon_props = array(
+            "icon" => "remove-cart",
+            "className" => "remove-cart-icon"
+        );
+        $ICON = new Icon($icon_props);
+
         $html = "";
         foreach ($array as $value) {
             $src = $value["image"];
+            $artwork_slug = $value["artwork_slug"];
             $artwork_name = $value["artwork_name"];
+            $artwork_price = $value["price"];
             $html .= <<<HTML
-                <div>
-                    <img src="$src">
-                    <div>
+                <tr>
+                    <td>
+                        <img class="artwork-preview" src="$src">
+                    </td>
+                    <td>
                         $artwork_name 
-                    </div>
-                </div>
+                    </td>
+                    <td>
+                        $artwork_price 
+                    </td>
+                    <td>
+                        <a class="remove-cart" href="/remove-cart?artwork_slug=$artwork_slug">
+                            {$ICON->render()}
+                        </a>
+                    </td>
+                </tr>
+            HTML;
+        }
+        return $html;
+    }
+
+    function mapOrder($array)
+    {
+        $html = "";
+        foreach ($array as $value) {
+            $order_id = $value["order_id"];
+            $total_price = $value["artwork_name"];
+            $artwork_price = $value["price"];
+            $html .= <<<HTML
+                <tr>
+                    <td>
+                        $order_id
+                    </td>
+                    <td>
+                        $total_price
+                    </td>
+                    <td>
+                        $artwork_price 
+                    </td>
+                </tr>
             HTML;
         }
         return $html;
@@ -109,15 +151,64 @@
             <div class="right-section section">
                 <div class="cart-container">
                     <h1>CART</h1>
-                    <?php
-                    $result = getUserCartIncludeAll($pdo, $id);
-                    echo mapCart($result);
-                    ?>
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Preview</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $result = getUserCartIncludeAll($pdo, $id);
+                            $total_prices = array_sum(array_column($result, "price"));
+                            echo mapCart($result);
+                            ?>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="total-price">Total Price:
+                                    <?php echo $total_prices ?>
+                                </td>
+                                <td></td>
+                            <tr>
+                        </tfoot>
+                    </table>
+                    <div class="flex-container-row">
+                        <div class="submit-button-container">
+                            <a href="/submit-cart" class="submit-button">
+                                Submit
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="order-container">
+                    <h1>ORDERS</h1>
+                    <table class="order-table">
+                        <thead>
+                            <tr>
+                                <th>Order Id</th>
+                                <th>Total Price</th>
+                                <th>Order Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $result = getUserCartIncludeAll($pdo, $id);
+                            $total_prices = array_sum(array_column($result, "price"));
+                            echo mapCart($result);
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
 
-    </div>
+        </div>
 </body>
 
 </html>

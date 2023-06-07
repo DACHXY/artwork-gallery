@@ -9,6 +9,10 @@ body {
     height: 100%;
 }
 
+h1 {
+    color: #404040;
+}
+
 /* 清除多餘樣式 */
 * {
     font-family: "Roboto";
