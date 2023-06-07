@@ -129,14 +129,15 @@ function getALLArtist($pdo)
     return $results;
 }
 
-function getALLArtwork($pdo)
+function getALLArtwork($pdo, $condition = "")
 {
     $results = selectFromDatabase(
         $pdo,
         TableName::$ARTWORK . " as AK",
-        "AK.slug as artwork_slug , image, artwork_name, avatar, AT.name as artist_name, price",
+        "AK.slug as artwork_slug, image, artwork_name, avatar, AT.name as artist_name, price",
         TableName::$ARTIST . " as AT",
-        "AK.artist_slug = AT.slug"
+        "AK.artist_slug = AT.slug",
+        $condition
     );
     return $results;
 }
@@ -234,12 +235,14 @@ function removeUserCart($pdo, $artwork_slug, $id)
     return $result;
 }
 
-function clearUserCart($pdo, $user_id){
+function clearUserCart($pdo, $user_id)
+{
     $result = deleteData($pdo, TableName::$USER_CART_ITEM, "user_id = '$user_id'");
     return $result;
 }
 
-function addItemToOrder($pdo, $artwork_slug, $order_id){
+function addItemToOrder($pdo, $artwork_slug, $order_id)
+{
     $data = [
         "artwork_slug" => $artwork_slug,
         "order_id" => $order_id
@@ -248,7 +251,8 @@ function addItemToOrder($pdo, $artwork_slug, $order_id){
     return $result;
 }
 
-function addToOrder($pdo, $user_id){
+function addToOrder($pdo, $user_id)
+{
 
     // 建立新訂單
     $newOrder = [
@@ -257,13 +261,13 @@ function addToOrder($pdo, $user_id){
     ];
     $result = insertData($pdo, TableName::$USER_ORDER, $newOrder);
     $order_id = $pdo->lastInsertId();
-    if (!$result || $order_id == null){
+    if (!$result || $order_id == null) {
         return false;
-    } 
+    }
 
     // 加入購物車
     $cart_artwork_slugs = getUserCart($pdo, $user_id);
-    foreach($cart_artwork_slugs as $artwork_slug){
+    foreach ($cart_artwork_slugs as $artwork_slug) {
         $result = addItemToOrder($pdo, $artwork_slug, $order_id);
     }
 
@@ -273,10 +277,11 @@ function addToOrder($pdo, $user_id){
     return true;
 }
 
-function getOrderItems($pdo, $order_id){
+function getOrderItems($pdo, $order_id)
+{
     $results = selectFromDatabase(
         $pdo,
-        TableName::$USER_ORDER_ITEM. " as OI",
+        TableName::$USER_ORDER_ITEM . " as OI",
         "*",
         TableName::$ARTWORK . " as AK",
         "OI.artwork_slug = AK.slug",
@@ -286,7 +291,8 @@ function getOrderItems($pdo, $order_id){
     return $results;
 }
 
-function getUserOrders($pdo, $user_id){
+function getUserOrders($pdo, $user_id)
+{
     $orders = selectFromDatabase(
         $pdo,
         TableName::$USER_ORDER,
@@ -298,7 +304,7 @@ function getUserOrders($pdo, $user_id){
     );
 
     // 價格加總
-    foreach ($orders as &$order){
+    foreach ($orders as &$order) {
         $order_id = $order["order_id"];
         $items = getOrderItems($pdo, $order_id);
         $total_price = array_sum(array_column($items, "price"));
@@ -308,9 +314,10 @@ function getUserOrders($pdo, $user_id){
     return $orders;
 }
 
-function removeOrder($pdo, $order_id){
+function removeOrder($pdo, $order_id)
+{
     $result = deleteData(
-        $pdo, 
+        $pdo,
         TableName::$USER_ORDER,
         "order_id = :order_id",
         [$order_id]

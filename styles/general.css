@@ -30,6 +30,15 @@ input {
     outline: none;
 }
 
+.float-item {
+    position: absolute;
+    top: 100px;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    color: #404040;
+}
+
 .none {
     display: none;
 }

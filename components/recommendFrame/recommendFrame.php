@@ -10,7 +10,7 @@ class RecommendFrame extends Component
 
         $name = $artist['name'];
         $avatar = $artist['avatar'];
-        $href = "/artist?slug=" . $artist['slug'];
+        $href = "/gallery?artist=" . $artist['slug'];
 
         return <<<HTML
             <a class="artist-icon-name-frame" href="$href">

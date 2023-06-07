@@ -12,9 +12,26 @@
 
 <body>
     <?php
+
+
     session_start();
     @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/header/header.php";
     @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/userAvatar/userAvatar.php";
+
+    $search_condition = "";
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        if (isset($_GET["keyword"])) {
+            $keywords = $_GET["keyword"];
+            $search_condition = "artwork_name LIKE '%$keywords%' OR AT.name LIKE '%$keywords%'";
+            echo "<h2 class=\"float-item\">Keywords: $keywords</h2>";
+        }
+        if (isset($_GET["artist"])) {
+            $artist_slug = $_GET["artist"];
+            $search_condition = "AK.artist_slug = '$artist_slug'";
+            echo "<h2 class=\"float-item\">Artist: $artist_slug</h2>";
+
+        }
+    }
 
     // 主頁 Header
     $HEADER = new Header();
@@ -54,9 +71,7 @@
     <div class="container">
         <div class="card-frame" id="card-frame">
             <?php
-            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-            }
 
             @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/card/card.php";
             @require_once $_SERVER['DOCUMENT_ROOT'] . "/db/context.php";
@@ -66,8 +81,9 @@
             if ($_SESSION["logged_in"]) {
                 $user_cart = getUserCart($pdo, $_SESSION["id"]);
             }
-            $all_artwork_result = getALLArtwork($pdo);
 
+
+            $all_artwork_result = getALLArtwork($pdo, $search_condition);
             // 切頁數
             $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
             $item_per_page = 46;

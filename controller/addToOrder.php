@@ -9,14 +9,15 @@ if ($_SESSION["logged_in"] == false) {
     header("Location: /login");
     exit();
 }
-
+$id = $_SESSION["id"];
 $items_in_cart = getUserCart($pdo, $id);
-if (count($items_in_cart) == 0){
+
+if (count($items_in_cart) == 0) {
     header("Location: /me?msg=Cart+empty!");
     exit();
 }
 
 $id = $_SESSION["id"];
 $result = addToOrder($pdo, $id);
-print_r(getUserOrders($pdo, $id))
+header("Location: /me");
 ?>

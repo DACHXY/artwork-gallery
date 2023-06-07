@@ -18,7 +18,10 @@ class GeneralSearchBar extends Component
         return <<<HTML
             <div class="frame-search">
                 {$ICON->render()}
-                <input class="search-input" type="text"/>
+                <form action="/gallery" method="GET">
+                    <input class="search-input" type="text" name="keyword"/>
+                    <input id="search submit" type="submit" value=""/>
+                </form>
             </div>
         HTML;
     }
@@ -41,7 +44,10 @@ class SearchBar extends Component
                 <h1 class="search-paraph">Look For Something Cool?</h1>
                 <div class="frame-search">
                     {$ICON->render()}
-                    <input class="search-input" type="text"/>
+                    <form action="/gallery" method="GET">
+                        <input class="search-input" type="text" name="keyword" />
+                        <input id="search submit" type="submit" value=""/>
+                    </form>
                 </div>
             </div>
         HTML;

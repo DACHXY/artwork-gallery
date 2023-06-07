@@ -44,7 +44,7 @@ class Card extends Component
             <div class="container-card">
                 $ICON_TO_RENDER
                 <a class="image-container" href="$artwork_href">
-                <img class="artwork-img" src="$image_href">
+                    <img class="artwork-img" src="$image_href">
                 </a>
                 <div class="card-info">
                     <h1>$artwork_title</h1>

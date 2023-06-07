@@ -26,7 +26,7 @@
             $src = $value["image"];
             $artwork_slug = $value["artwork_slug"];
             $artwork_name = $value["artwork_name"];
-            $artwork_price = $value["price"];
+            $artwork_price = number_format($value["price"], 2);
             $html .= <<<HTML
                 <tr>
                     <td>
@@ -36,7 +36,7 @@
                         $artwork_name 
                     </td>
                     <td>
-                        $artwork_price 
+                        $$artwork_price 
                     </td>
                     <td>
                         <a class="remove-cart" href="/remove-cart?artwork_slug=$artwork_slug">
@@ -54,18 +54,18 @@
         $html = "";
         foreach ($array as $value) {
             $order_id = $value["order_id"];
-            $total_price = $value["artwork_name"];
-            $artwork_price = $value["price"];
+            $order_date = $value["create_at"];
+            $total_price = number_format($value["total_price"], 2);
             $html .= <<<HTML
                 <tr>
                     <td>
                         $order_id
                     </td>
                     <td>
-                        $total_price
+                        $$total_price
                     </td>
                     <td>
-                        $artwork_price 
+                        $order_date 
                     </td>
                 </tr>
             HTML;
@@ -151,60 +151,76 @@
             <div class="right-section section">
                 <div class="cart-container">
                     <h1>CART</h1>
-                    <?php 
+                    <?php
                     $result = getUserCartIncludeAll($pdo, $id);
-                    $total_prices = array_sum(array_column($result, "price"));
-                    echo <<<HTML
-                    <table class="cart-table">
-                        <thead>
-                            <tr>
-                                <th>Preview</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {mapCart($result)};
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td class="total-price">Total Price:
-                                    <?php echo $total_prices ?>
-                                </td>
-                                <td></td>
-                            <tr>
-                        </tfoot>
-                    </table>
-                    <div class="flex-container-row">
-                        <div class="submit-button-container">
-                            <a href="/submit-cart" class="submit-button">
-                                Submit
-                            </a>
-                        </div>
-                    </div>
-                    HTML ?>
+                    $total_prices = number_format(array_sum(array_column($result, "price")), 2);
+                    $cart_html = mapCart($result);
+
+                    if ($result) {
+                        echo <<<HTML
+                            <table class="cart-table">
+                                <thead>
+                                    <tr>
+                                        <th>Preview</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    $cart_html
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="total-price">Total Price:
+                                            $$total_prices
+                                        </td>
+                                        <td></td>
+                                    <tr>
+                                </tfoot>
+                            </table>
+                            <div class="flex-container-row">
+                                <div class="submit-button-container">
+                                    <a href="/submit-cart" class="submit-button">
+                                        Submit
+                                    </a>
+                                </div>
+                            </div>
+                        HTML;
+                    } else {
+                        echo "<div class=\"empty-frame\">Empty</div>";
+                    }
+                    ?>
                 </div>
                 <div class="order-container">
                     <h1>ORDERS</h1>
-                    <table class="order-table">
-                        <thead>
-                            <tr>
-                                <th>Order Id</th>
-                                <th>Total Price</th>
-                                <th>Order Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $result = getUserCartIncludeAll($pdo, $id);
-                            $total_prices = array_sum(array_column($result, "price"));
-                            echo mapCart($result);
-                            ?>
-                        </tbody>
-                    </table>
+                    <?php
+                    $result = getUserOrders($pdo, $id);
+                    $order_html = mapOrder($result);
+
+                    if ($result) {
+                        echo <<<HTML
+                            <table class="order-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order Id</th>
+                                        <th>Total Price</th>
+                                        <th>Order Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    $order_html
+                                </tbody>
+                            </table>
+                        HTML;
+                    } else {
+                        echo "<div class=\"empty-frame\">Empty</div>";
+                    }
+
+                    ?>
+
                 </div>
             </div>
 

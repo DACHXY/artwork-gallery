@@ -8,7 +8,6 @@
 @import "/styles/general.css";
 
 .container {
-    height: auto;
     width: calc(100% - 28%);
     padding-left: 14%;
     padding-right: 14%;
@@ -39,7 +38,7 @@
 }
 
 .page-change-container {
-    height: 60px;
+    height: 120px;
     min-width: 60%;
     margin-bottom: 40px;
 }
