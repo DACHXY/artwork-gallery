@@ -25,15 +25,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/www/images/avatars/';
         $targetFilePath = $uploadDir . $fileName . "." . $extension;
-
+        echo $targetFilePath;
         if (move_uploaded_file($fileTmpPath, $targetFilePath)) {
             $email = $_SESSION["email"];
             $user_id = $_SESSION["id"];
             $user = getUserByEmail($pdo, $email)[0];
             $old_avatar = $user["avatar"];
+            echo $old_avatar;
             if ($old_avatar != "/www/images/avatars/default.jpg") {
                 if (file_exists($_SERVER['DOCUMENT_ROOT'] . $old_avatar)) {
-                    if (unlink($old_avatar)) {
+                    if (unlink($_SERVER['DOCUMENT_ROOT'] . $old_avatar)) {
                         echo '檔案已成功刪除';
                     } else {
                         echo '無法刪除檔案。';
