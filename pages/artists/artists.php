@@ -5,31 +5,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery</title>
-    <link rel="stylesheet" type="text/css" href="/pages/gallery/gallery.css">
+    <link rel="stylesheet" type="text/css" href="/pages/artists/artists.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="/scripts/hoverCard.js"></script>
 </head>
 
 <body>
     <?php
-
-
     session_start();
     @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/header/header.php";
     @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/userAvatar/userAvatar.php";
+    @require_once $_SERVER['DOCUMENT_ROOT'] . "/db/context.php";
+    @include $_SERVER['DOCUMENT_ROOT'] . "/db/dbConnect.php";
+
+    function MapArtist($artists)
+    {
+        $html = "";
+        foreach ($artists as $artist) {
+            $artist_href = "/gallery?artist=" . $artist["slug"];
+            $artist_avatar = $artist["avatar"];
+            $artist_name = $artist["name"];
+            $artist_bio = $artist["biography"] == null ? "No biograhpy" : strip_tags($artist["biography"]);
+
+            $html .= <<<HTML
+                <div class="container-card">
+                    <a class="container-link" href="$artist_href">
+                        <div class="flex-row">
+                            <img class="artist-avatar" src="$artist_avatar">
+                        </div>
+                        <div class="artist-info">
+                            <span class="artist-name">$artist_name</span>
+                            <span> Biograhpy </span>
+                            <span class="artist-bio"> $artist_bio </span>
+                        </div>
+                    </a>
+                </div>
+            HTML;
+        }
+        return $html;
+    }
 
     $search_condition = "";
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if (isset($_GET["keyword"])) {
             $keywords = $_GET["keyword"];
-            $search_condition = "artwork_name LIKE '%$keywords%' OR AT.name LIKE '%$keywords%'";
+            $search_condition = "name LIKE '%$keywords%'";
             echo "<h2 class=\"float-item\">Keywords: $keywords</h2>";
         }
-        if (isset($_GET["artist"])) {
-            $artist_slug = $_GET["artist"];
-            $search_condition = "AK.artist_slug = '$artist_slug'";
+        if (isset($_GET["slug"])) {
+            $artist_slug = $_GET["slug"];
+            $search_condition = "slug LIKE '%$artist_slug%'";
             echo "<h2 class=\"float-item\">Artist: $artist_slug</h2>";
-
         }
     }
 
@@ -67,55 +93,20 @@
         HTML;
     }
 
+    $artists = getALLArtist($pdo, $search_condition);
+
+    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    $item_per_page = 21;
+    $start_index = ($page - 1) * $item_per_page;
+    $endIndex = $start_index + $item_per_page - 1;
+
+    $artists = array_slice($artists, $start_index, $item_per_page);
+
     ?>
     <div class="container">
         <div class="card-frame" id="card-frame">
             <?php
-            @require_once $_SERVER['DOCUMENT_ROOT'] . "/components/card/card.php";
-            @require_once $_SERVER['DOCUMENT_ROOT'] . "/db/context.php";
-            @include $_SERVER['DOCUMENT_ROOT'] . "/db/dbConnect.php";
-
-            $user_cart = [];
-            if ($_SESSION["logged_in"]) {
-                $user_cart = getUserCart($pdo, $_SESSION["id"]);
-            }
-
-
-            $all_artwork_result = getALLArtwork($pdo, $search_condition);
-            // 切頁數
-            $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-            $item_per_page = 46;
-            $start_index = ($page - 1) * $item_per_page;
-            $endIndex = $start_index + $item_per_page - 1;
-
-            $artworks = array_slice($all_artwork_result, $start_index, $item_per_page);
-
-            $html = "";
-            foreach ($artworks as $artwork) {
-                $image_url = $artwork["image"];
-                $arwork_title = $artwork["artwork_name"];
-                $artist_avatar = $artwork["avatar"];
-                $artist_name = $artwork["artist_name"];
-                $artwork_href = "/artwork?slug=" . $artwork["artwork_slug"];
-                $artwork_price = $artwork["price"];
-                $artwork_slug = $artwork["artwork_slug"];
-
-                $card_porps = array(
-                    "imageHref" => $image_url,
-                    "artworkHref" => $artwork_href,
-                    "artworkTitle" => $arwork_title,
-                    "artistAvatar" => $artist_avatar,
-                    "artistName" => $artist_name,
-                    "artworkPrice" => $artwork_price,
-                    "artworkSlug" => $artwork_slug,
-                    "addedToCart" => in_array($artwork_slug, $user_cart)
-                );
-
-                $CARD = new Card($card_porps);
-                $html .= $CARD->render();
-            }
-
-            echo $html;
+            echo MapArtist($artists);
             ?>
         </div>
         <div class="page-change-container">

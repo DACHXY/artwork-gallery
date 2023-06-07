@@ -106,9 +106,9 @@ function deleteData($pdo, $table, $condition, $params = [])
     }
 }
 
-function getAll($pdo, $table)
+function getAll($pdo, $table, $condition = "")
 {
-    $results = selectFromDatabase($pdo, $table, "*");
+    $results = selectFromDatabase($pdo, $table, "*", "", "", $condition);
     return $results;
 }
 function getAllUsers($pdo)
@@ -123,9 +123,9 @@ function getUserByEmail($pdo, $email)
     return $result;
 }
 
-function getALLArtist($pdo)
+function getALLArtist($pdo, $condition)
 {
-    $results = getAll($pdo, "artist");
+    $results = getAll($pdo, TableName::$ARTIST, $condition);
     return $results;
 }
 
