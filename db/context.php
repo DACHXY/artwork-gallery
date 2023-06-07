@@ -234,4 +234,88 @@ function removeUserCart($pdo, $artwork_slug, $id)
     return $result;
 }
 
+function clearUserCart($pdo, $user_id){
+    $result = deleteData($pdo, TableName::$USER_CART_ITEM, "user_id = '$user_id'");
+    return $result;
+}
+
+function addItemToOrder($pdo, $artwork_slug, $order_id){
+    $data = [
+        "artwork_slug" => $artwork_slug,
+        "order_id" => $order_id
+    ];
+    $result = insertData($pdo, TableName::$USER_ORDER_ITEM, $data);
+    return $result;
+}
+
+function addToOrder($pdo, $user_id){
+
+    // 建立新訂單
+    $newOrder = [
+        "user_id" => $user_id,
+        "create_at" => date('Y-m-d H:i:s')
+    ];
+    $result = insertData($pdo, TableName::$USER_ORDER, $newOrder);
+    $order_id = $pdo->lastInsertId();
+    if (!$result || $order_id == null){
+        return false;
+    } 
+
+    // 加入購物車
+    $cart_artwork_slugs = getUserCart($pdo, $user_id);
+    foreach($cart_artwork_slugs as $artwork_slug){
+        $result = addItemToOrder($pdo, $artwork_slug, $order_id);
+    }
+
+    // 清空購物車
+    $result = clearUserCart($pdo, $user_id);
+
+    return true;
+}
+
+function getOrderItems($pdo, $order_id){
+    $results = selectFromDatabase(
+        $pdo,
+        TableName::$USER_ORDER_ITEM. " as OI",
+        "*",
+        TableName::$ARTWORK . " as AK",
+        "OI.artwork_slug = AK.slug",
+        "OI.order_id = :order_id",
+        [$order_id]
+    );
+    return $results;
+}
+
+function getUserOrders($pdo, $user_id){
+    $orders = selectFromDatabase(
+        $pdo,
+        TableName::$USER_ORDER,
+        "*",
+        "",
+        "",
+        "user_id = :user_id",
+        [$user_id]
+    );
+
+    // 價格加總
+    foreach ($orders as &$order){
+        $order_id = $order["order_id"];
+        $items = getOrderItems($pdo, $order_id);
+        $total_price = array_sum(array_column($items, "price"));
+        $order["total_price"] = $total_price;
+    }
+
+    return $orders;
+}
+
+function removeOrder($pdo, $order_id){
+    $result = deleteData(
+        $pdo, 
+        TableName::$USER_ORDER,
+        "order_id = :order_id",
+        [$order_id]
+    );
+    return $result;
+}
+
 ?>

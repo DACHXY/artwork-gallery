@@ -1,5 +1,5 @@
 <?php
-$__DBsevername = "sql-server-2";
+$__DBsevername = "sql1,1433";
 $__DBname = "ArtworkDB";
 $__DBusername = "sa";
 $__DBpassword = "Danny10132024...";

@@ -151,6 +151,10 @@
             <div class="right-section section">
                 <div class="cart-container">
                     <h1>CART</h1>
+                    <?php 
+                    $result = getUserCartIncludeAll($pdo, $id);
+                    $total_prices = array_sum(array_column($result, "price"));
+                    echo <<<HTML
                     <table class="cart-table">
                         <thead>
                             <tr>
@@ -161,11 +165,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $result = getUserCartIncludeAll($pdo, $id);
-                            $total_prices = array_sum(array_column($result, "price"));
-                            echo mapCart($result);
-                            ?>
+                            {mapCart($result)};
                         </tbody>
                         <tfoot>
                             <tr>
@@ -185,7 +185,7 @@
                             </a>
                         </div>
                     </div>
-
+                    HTML ?>
                 </div>
                 <div class="order-container">
                     <h1>ORDERS</h1>

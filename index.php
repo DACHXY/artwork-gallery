@@ -12,7 +12,8 @@ $routes = array(
     "/editUser" => "controller/editUser.php",
     "/add-to-cart" => "controller/addToCart.php",
     "/remove-cart" => "controller/removeCart.php",
-    "/deleteUser" => "controller/deleteUser.php"
+    "/deleteUser" => "controller/deleteUser.php",
+    "/submit-cart" => "controller/addToOrder.php"
 );
 
 $route = parse_url($request_uri, PHP_URL_PATH);
