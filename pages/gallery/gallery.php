@@ -102,7 +102,7 @@
                 $arwork_title = $artwork["artwork_name"];
                 $artist_avatar = $artwork["avatar"];
                 $artist_name = $artwork["artist_name"];
-                $artwork_href = "/artwork?slug=" . $artwork["artwork_slug"];
+                $artwork_href = "/gallery?artwork=" . $artwork["artwork_slug"];
                 $artwork_price = $artwork["price"];
                 $artwork_slug = $artwork["artwork_slug"];
 
