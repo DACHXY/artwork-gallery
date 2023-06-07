@@ -91,7 +91,7 @@
             $endIndex = $start_index + $item_per_page - 1;
 
             $artworks = array_slice($all_artwork_result, $start_index, $item_per_page);
-            if (count($artworks) == 0) {
+            if (count($artworks) == 0 && isset($_GET['page'])) {
                 header("Location: " . $_SERVER['HTTP_REFERER']);
                 exit();
             }
