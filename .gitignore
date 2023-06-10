@@ -1,0 +1,4 @@
+www/images/avatars/*
+
+# 把默認頭貼加入例外
+!www/images/avatars/default.jpg
