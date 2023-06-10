@@ -112,8 +112,8 @@
     @include $_SERVER['DOCUMENT_ROOT'] . "/db/dbConnect.php";
 
     // 主頁 Header
-    $HOME_PAGE_HEADER = new HomePageHeader();
-    echo $HOME_PAGE_HEADER->render();
+    $HEADER = new Header();
+    echo $HEADER->render();
 
     // Edit Icon
     $icon_props = array(

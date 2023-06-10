@@ -96,7 +96,7 @@
     $artists = getALLArtist($pdo, $search_condition);
 
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-    $item_per_page = 21;
+    $item_per_page = 24;
     $start_index = ($page - 1) * $item_per_page;
     $endIndex = $start_index + $item_per_page - 1;
 
