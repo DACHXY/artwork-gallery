@@ -16,27 +16,30 @@ try {
     $stmt = $pdo->query("SELECT COUNT(*) FROM sys.databases WHERE name = '$__DBname'");
     $count = $stmt->fetchColumn();
 
+    $count = 0;
     // 如果 ArtworkDB 不存在
     if ($count == 0) {
         try {
-            echo "建立資料表";
+            // $pdo->exec("CREATE DATABASE $__DBname");
+            // $pdo->commit();
+            $pdo = null;
+
+            $dsn = "sqlsrv:Server=$__DBsevername;Database=$__DBname;TrustServerCertificate=1";
+            $pdo = new PDO($dsn, $__DBusername, $__DBpassword);
+
             // 建立資料庫與資料表
             $sql = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/scripts/ArtworkDB.sql");
-            $pdo->exec($sql);
+            $result = $pdo->exec($sql);
 
             // 新增資料
             $sql = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/scripts/insert_data.sql");
-            $pdo->exec($sql);
+            $result = $pdo->exec($sql);
         } catch (Exception $e) {
             die("ERROR: " . $e->getMessage());
         }
-
     }
-
     $dsn = "sqlsrv:Server=$__DBsevername;Database=$__DBname;TrustServerCertificate=1";
     $pdo = new PDO($dsn, $__DBusername, $__DBpassword);
-    echo "Connected to ArtworkDB database.";
-
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
 }

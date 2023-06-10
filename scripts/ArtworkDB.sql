@@ -8,12 +8,6 @@
 --     DROP TABLE user_liked_artwork;
 -- END
 
-IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = 'ArtworkDB')
-BEGIN
-    CREATE DATABASE ArtworkDB;
-END
-
-USE ArtworkDB;
 
 IF OBJECT_ID('user_cart_item', 'U') IS NOT NULL
 BEGIN
@@ -44,6 +38,14 @@ IF OBJECT_ID('artist', 'U') IS NOT NULL
 BEGIN
     DROP TABLE artist;
 END
+
+IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = 'artworkdb')
+BEGIN
+    CREATE DATABASE ArtworkDB;
+END
+
+USE ArtworkDB;
+
 
 CREATE TABLE users (
     id uniqueidentifier PRIMARY KEY,
