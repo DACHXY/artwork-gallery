@@ -1,7 +1,7 @@
 version: '3'
 services:
   apache:
-    container_name: 410050042-apache2
+    container_name: 410530042-apache2
     ports:
       - "8081:80"
     build: .
@@ -11,7 +11,7 @@ services:
       - sql-server
 
   sql-server:
-    container_name: 410050042-sql
+    container_name: 410530042-sql
     image: mcr.microsoft.com/mssql/server:2022-latest
     hostname: 410050042-sql
     ports:
