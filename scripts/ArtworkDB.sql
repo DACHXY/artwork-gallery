@@ -44,6 +44,8 @@ BEGIN
     CREATE DATABASE ArtworkDB;
 END
 
+GO
+
 USE ArtworkDB;
 
 
