@@ -42,10 +42,9 @@ END
 IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = 'artworkdb')
 BEGIN
     CREATE DATABASE ArtworkDB;
-END
+END;
 
 USE ArtworkDB;
-
 
 CREATE TABLE users (
     id uniqueidentifier PRIMARY KEY,

@@ -18,28 +18,40 @@ try {
 
     // 如果 ArtworkDB 不存在
     if ($count == 0) {
-        try {
-            // 創建 ArtworkDB 資料庫
-            $pdo->exec("CREATE DATABASE $__DBname");
-            $pdo = null;
+        // 創建 ArtworkDB 資料庫
+        $pdo->exec("CREATE DATABASE $__DBname");
+        $pdo = null;
+        $dsn = "sqlsrv:Server=$__DBsevername;Database=$__DBname;TrustServerCertificate=1";
+        $pdo = new PDO($dsn, $__DBusername, $__DBpassword);
 
-            $dsn = "sqlsrv:Server=$__DBsevername;Database=$__DBname;TrustServerCertificate=1";
-            $pdo = new PDO($dsn, $__DBusername, $__DBpassword);
+        // 建立資料表
+        $sql = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/scripts/ArtworkDB.sql");
+        $result = $pdo->exec($sql);
 
-            // 建立資料表
-            $sql = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/scripts/ArtworkDB.sql");
-            $result = $pdo->exec($sql);
+        // 新增資料
+        $filePath = $_SERVER['DOCUMENT_ROOT'] . "/scripts/insert_data.sql";
+        $fileHandle = fopen($filePath, 'r');
 
-            // 新增資料
-            $sql = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/scripts/insert_data.sql");
-            $result = $pdo->exec($sql);
+        if ($fileHandle) {
+            while (($line = fgets($fileHandle)) !== false) {
+                // 執行每一行的 SQL 查詢
+                $result = $pdo->exec($line);
 
-        } catch (Exception $e) {
-            die("ERROR: " . $e->getMessage());
+                if ($result === false) {
+                    echo "執行 SQL 查詢時發生錯誤：" . $pdo->errorInfo()[2];
+                    break;
+                }
+            }
+
+            fclose($fileHandle);
+        } else {
+            echo "無法開啟檔案：" . $filePath;
         }
     }
+
     $dsn = "sqlsrv:Server=$__DBsevername;Database=$__DBname;TrustServerCertificate=1";
     $pdo = new PDO($dsn, $__DBusername, $__DBpassword);
+
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
 }
