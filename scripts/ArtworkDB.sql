@@ -1,14 +1,3 @@
--- IF OBJECT_ID('user_liked_artist', 'U') IS NOT NULL
--- BEGIN
---     DROP TABLE user_liked_artist;
--- END
-
--- IF OBJECT_ID('user_liked_artwork', 'U') IS NOT NULL
--- BEGIN
---     DROP TABLE user_liked_artwork;
--- END
-
-
 IF OBJECT_ID('user_cart_item', 'U') IS NOT NULL
 BEGIN
     DROP TABLE user_cart_item;
@@ -39,12 +28,10 @@ BEGIN
     DROP TABLE artist;
 END
 
-IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = 'artworkdb')
+IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = 'ArtworkDB')
 BEGIN
     CREATE DATABASE ArtworkDB;
 END;
-
-GO
 
 USE ArtworkDB;
 
@@ -86,24 +73,6 @@ CREATE TABLE user_cart_item (
     FOREIGN KEY (user_id) REFERENCES users(id),
     PRIMARY KEY (user_id, artwork_slug)
 );
-
--- CREATE TABLE user_liked_artist (
---     user_id uniqueidentifier,
---     artist_slug NVARCHAR(255),
---     create_at DATETIME,
---     FOREIGN KEY (user_id) REFERENCES users(id),
---     FOREIGN KEY (artist_slug) REFERENCES artist(slug),
---     PRIMARY KEY (user_id, artist_slug)
--- );
-
--- CREATE TABLE user_liked_artwork (
---     user_id uniqueidentifier,
---     artwork_slug NVARCHAR(255),
---     create_at DATETIME,
---     FOREIGN KEY (user_id) REFERENCES users(id),
---     FOREIGN KEY (artwork_slug) REFERENCES artwork(slug),
---     PRIMARY KEY (user_id, artwork_slug)
--- );
 
 CREATE TABLE user_order (
     order_id INT IDENTITY(1, 1) PRIMARY KEY,
